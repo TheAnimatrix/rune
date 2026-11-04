@@ -223,14 +223,18 @@ fn italic_uses_the_real_face_or_a_synthetic_oblique() {
     }
 }
 
-/// Hebrew, Arabic, Devanagari, Bengali and Thai load their system fonts on first use and
+/// Hebrew, Arabic, Devanagari, Bengali, Thai and the other Indian scripts load their system fonts on first use and
 /// shape with real glyphs; Latin text loads none of them.
 #[test]
 fn scripts_load_their_system_fonts_on_first_use() {
     let mut ts = TextSystem::default();
     ts.layout_rich("Hello, “café” — naïve…", &[], TextStyle::new(13.0, 400.0), 2.0, None);
     assert_eq!(ts.scripts, 0, "Latin text must not load script fallbacks");
-    let samples = ["שלום עולם", "مرحبا بالعالم", "नमस्ते दुनिया", "ওহে বিশ্ব", "สวัสดีชาวโลก"];
+    let samples = [
+        "שלום עולם", "مرحبا بالعالم", "नमस्ते दुनिया", "ওহে বিশ্ব", "สวัสดีชาวโลก", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "નમસ્તે દુનિયા",
+        "ନମସ୍କାର", "வணக்கம் உலகம்", "నమస్కారం ప్రపంచం", "ನಮಸ್ಕಾರ ಜಗತ್ತು", "നമസ്കാരം ലോകം",
+    ];
+    assert_eq!(samples.len(), fallback::SCRIPT_FONTS.len());
     for (fonts, sample) in fallback::SCRIPT_FONTS.iter().zip(samples) {
         assert!(sample.chars().any(|ch| fonts.covers(ch)), "{sample} is not {:?}", fonts.script);
         if system_font_files(fonts.files).is_empty() {
