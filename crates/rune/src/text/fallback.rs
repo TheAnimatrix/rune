@@ -52,6 +52,13 @@ const ARABIC: &[(u32, u32)] = &[(0x0600, 0x06FF), (0x0750, 0x077F), (0x0870, 0x0
 const DEVANAGARI: &[(u32, u32)] = &[(0x0900, 0x097F), (0xA8E0, 0xA8FF)];
 const BENGALI: &[(u32, u32)] = &[(0x0980, 0x09FF)];
 const THAI: &[(u32, u32)] = &[(0x0E00, 0x0E7F)];
+const GURMUKHI: &[(u32, u32)] = &[(0x0A00, 0x0A7F)];
+const GUJARATI: &[(u32, u32)] = &[(0x0A80, 0x0AFF)];
+const ORIYA: &[(u32, u32)] = &[(0x0B00, 0x0B7F)];
+const TAMIL: &[(u32, u32)] = &[(0x0B80, 0x0BFF), (0x11FC0, 0x11FFF)];
+const TELUGU: &[(u32, u32)] = &[(0x0C00, 0x0C7F)];
+const KANNADA: &[(u32, u32)] = &[(0x0C80, 0x0CFF)];
+const MALAYALAM: &[(u32, u32)] = &[(0x0D00, 0x0D7F)];
 
 #[cfg(target_os = "macos")]
 pub(super) const SCRIPT_FONTS: &[ScriptFonts] = &[
@@ -60,6 +67,13 @@ pub(super) const SCRIPT_FONTS: &[ScriptFonts] = &[
     ScriptFonts { script: b"Deva", blocks: DEVANAGARI, files: &["kohinoorttc", "itfdevanagari"] },
     ScriptFonts { script: b"Beng", blocks: BENGALI, files: &["kohinoorbangla", "banglamn"] },
     ScriptFonts { script: b"Thai", blocks: THAI, files: &["thonburi"] },
+    ScriptFonts { script: b"Guru", blocks: GURMUKHI, files: &["muktamahee", "gurmukhisangammn", "gurmukhimn", "gurmukhittf"] },
+    ScriptFonts { script: b"Gujr", blocks: GUJARATI, files: &["kohinoorgujarati", "gujaratisangammn", "gujaratimt"] },
+    ScriptFonts { script: b"Orya", blocks: ORIYA, files: &["notosansoriya", "oriyasangammn", "oriyamn"] },
+    ScriptFonts { script: b"Taml", blocks: TAMIL, files: &["tamilsangammn", "tamilmn"] },
+    ScriptFonts { script: b"Telu", blocks: TELUGU, files: &["kohinoortelugu", "telugusangammn", "telugumn"] },
+    ScriptFonts { script: b"Knda", blocks: KANNADA, files: &["notosanskannada", "kannadasangammn", "kannadamn"] },
+    ScriptFonts { script: b"Mlym", blocks: MALAYALAM, files: &["malayalamsangammn", "malayalammn"] },
 ];
 #[cfg(windows)]
 pub(super) const SCRIPT_FONTS: &[ScriptFonts] = &[
@@ -68,6 +82,14 @@ pub(super) const SCRIPT_FONTS: &[ScriptFonts] = &[
     ScriptFonts { script: b"Deva", blocks: DEVANAGARI, files: &["nirmala"] },
     ScriptFonts { script: b"Beng", blocks: BENGALI, files: &["nirmala"] },
     ScriptFonts { script: b"Thai", blocks: THAI, files: &["leelawui", "tahomattf"] },
+    // Nirmala UI covers every Indian script; the older per-script fonts are for Windows 7.
+    ScriptFonts { script: b"Guru", blocks: GURMUKHI, files: &["nirmala", "raavi"] },
+    ScriptFonts { script: b"Gujr", blocks: GUJARATI, files: &["nirmala", "shruti"] },
+    ScriptFonts { script: b"Orya", blocks: ORIYA, files: &["nirmala", "kalinga"] },
+    ScriptFonts { script: b"Taml", blocks: TAMIL, files: &["nirmala", "latha"] },
+    ScriptFonts { script: b"Telu", blocks: TELUGU, files: &["nirmala", "gautami"] },
+    ScriptFonts { script: b"Knda", blocks: KANNADA, files: &["nirmala", "tunga"] },
+    ScriptFonts { script: b"Mlym", blocks: MALAYALAM, files: &["nirmala", "kartika"] },
 ];
 #[cfg(not(any(target_os = "macos", windows)))]
 pub(super) const SCRIPT_FONTS: &[ScriptFonts] = &[
@@ -76,6 +98,13 @@ pub(super) const SCRIPT_FONTS: &[ScriptFonts] = &[
     ScriptFonts { script: b"Deva", blocks: DEVANAGARI, files: &["notosansdevanagari", "lohitdevanagari", "freesans"] },
     ScriptFonts { script: b"Beng", blocks: BENGALI, files: &["notosansbengali", "lohitbengali", "freesans"] },
     ScriptFonts { script: b"Thai", blocks: THAI, files: &["notosansthai", "tlwg", "freesans"] },
+    ScriptFonts { script: b"Guru", blocks: GURMUKHI, files: &["notosansgurmukhi", "lohitgurmukhi", "lohitpunjabi", "freesans"] },
+    ScriptFonts { script: b"Gujr", blocks: GUJARATI, files: &["notosansgujarati", "lohitgujarati", "freesans"] },
+    ScriptFonts { script: b"Orya", blocks: ORIYA, files: &["notosansoriya", "notosansodia", "lohitodia", "lohitoriya"] },
+    ScriptFonts { script: b"Taml", blocks: TAMIL, files: &["notosanstamil", "lohittamil", "freesans"] },
+    ScriptFonts { script: b"Telu", blocks: TELUGU, files: &["notosanstelugu", "lohittelugu"] },
+    ScriptFonts { script: b"Knda", blocks: KANNADA, files: &["notosanskannada", "lohitkannada"] },
+    ScriptFonts { script: b"Mlym", blocks: MALAYALAM, files: &["notosansmalayalam", "lohitmalayalam", "freesans"] },
 ];
 
 /// Whether `ch` is in a symbol block the eager symbol fallbacks often miss. General punctuation
